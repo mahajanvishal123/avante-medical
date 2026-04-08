@@ -1,0 +1,332 @@
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+
+const { width } = Dimensions.get('window');
+
+export default function TopicDetailsScreen() {
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
+  const { t } = useTranslation();
+
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+        <View style={styles.headerContent}>
+          <TouchableOpacity onPress={() => router.push('/(tabs)/chapter-details')} style={styles.headerIcon}>
+            <Ionicons name="arrow-back" size={24} color="#fff" />
+          </TouchableOpacity>
+          <View style={styles.headerTitleContainer}>
+             <Text style={styles.headerSubtitle}>TOPIC: HEART CHAMBERS</Text>
+             <Text style={styles.headerTitle}>{t('chapters.topics_details')}</Text>
+          </View>
+          <TouchableOpacity style={styles.headerIcon}>
+            <Ionicons name="search" size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <ScrollView 
+        style={styles.content} 
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 120 }}
+      >
+        <View style={styles.textContent}>
+           <Text style={styles.mainTitle}>{t('chapters.t1_title')}</Text>
+           <Text style={styles.description}>
+             {t('chapters.chapter_desc')}
+           </Text>
+        </View>
+
+        {/* Content Image */}
+        <View style={styles.imageCard}>
+           <Image 
+             source={require('../../assets/level2_heart.png')} 
+             style={styles.contentImage}
+             resizeMode="cover"
+           />
+        </View>
+
+        {/* Video Player Section */}
+        <View style={styles.videoPlayer}>
+           <Image 
+             source={require('../../assets/brain_scan.png')} 
+             style={styles.videoThumbnail}
+             resizeMode="cover"
+           />
+           <View style={styles.videoOverlay}>
+              <TouchableOpacity style={styles.playButton}>
+                 <Ionicons name="play" size={40} color="#fff" />
+              </TouchableOpacity>
+              <View style={styles.videoControls}>
+                 <View style={styles.timeRow}>
+                    <Text style={styles.timeText}>08:42</Text>
+                    <Text style={styles.timeText}>24:15</Text>
+                 </View>
+                 <View style={styles.videoTrack}>
+                    <View style={styles.videoProgress} />
+                    <View style={styles.progressKnob} />
+                 </View>
+              </View>
+           </View>
+        </View>
+
+        {/* Meta Info */}
+        <View style={styles.metaRow}>
+           <View style={styles.unitBadge}>
+              <Text style={styles.unitBadgeText}>UNIT 2 OF 4</Text>
+           </View>
+           <Text style={styles.metaText}>• Advanced Cardiac Life Support</Text>
+        </View>
+
+        {/* Action Button */}
+        <TouchableOpacity style={styles.quizButton}>
+           <Text style={styles.quizButtonText}>{t('chapters.attempt_quiz')}</Text>
+        </TouchableOpacity>
+
+        {/* Navigation Controls */}
+        <View style={styles.navRow}>
+           <TouchableOpacity style={styles.navButton}>
+              <Ionicons name="play-back" size={20} color="#333" />
+              <Text style={styles.navButtonText}>{t('chapters.previous')}</Text>
+           </TouchableOpacity>
+
+           <TouchableOpacity style={styles.allTopicsButton}>
+              <Text style={styles.allTopicsText}>{t('chapters.all_topics_btn')}</Text>
+              <Ionicons name="list" size={20} color="#fff" />
+           </TouchableOpacity>
+
+           <TouchableOpacity style={styles.navButton}>
+              <Text style={styles.navButtonText}>{t('chapters.next')}</Text>
+              <Ionicons name="play-forward" size={20} color="#333" />
+           </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+      {/* Footer is handled by TabLayout */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  header: {
+    backgroundColor: '#24458B',
+    paddingBottom: 20,
+  },
+  headerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  headerIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTitleContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  headerSubtitle: {
+    fontSize: 10,
+    color: 'rgba(255,255,255,0.7)',
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    marginBottom: 2,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#fff',
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+  },
+  textContent: {
+    marginBottom: 25,
+  },
+  mainTitle: {
+    fontSize: 28,
+    fontWeight: '900',
+    color: '#1A1A1A',
+    marginBottom: 15,
+  },
+  description: {
+    fontSize: 16,
+    color: '#666',
+    lineHeight: 24,
+    opacity: 0.8,
+  },
+  imageCard: {
+    width: '100%',
+    height: 200,
+    borderRadius: 20,
+    overflow: 'hidden',
+    marginBottom: 25,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+  },
+  contentImage: {
+    width: '100%',
+    height: '100%',
+  },
+  videoPlayer: {
+    width: '100%',
+    height: 220,
+    borderRadius: 20,
+    overflow: 'hidden',
+    backgroundColor: '#000',
+    marginBottom: 25,
+  },
+  videoThumbnail: {
+    width: '100%',
+    height: '100%',
+    opacity: 0.6,
+  },
+  videoOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  playButton: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#FF6B00',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 8,
+  },
+  videoControls: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+  },
+  timeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  timeText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  videoTrack: {
+    height: 4,
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    borderRadius: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  videoProgress: {
+    width: '40%',
+    height: '100%',
+    backgroundColor: '#FF6B00',
+    borderRadius: 2,
+  },
+  progressKnob: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#FF6B00',
+    marginLeft: -2,
+  },
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+    gap: 10,
+  },
+  unitBadge: {
+    backgroundColor: '#FFF0E6',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FFDAB9',
+  },
+  unitBadgeText: {
+    color: '#FF6B00',
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  metaText: {
+    fontSize: 13,
+    color: '#999',
+    fontWeight: '600',
+  },
+  quizButton: {
+    height: 60,
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: '#24458B',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30,
+  },
+  quizButtonText: {
+    color: '#24458B',
+    fontSize: 18,
+    fontWeight: '800',
+  },
+  navRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#F0F0F0',
+  },
+  navButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  navButtonText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#333',
+  },
+  allTopicsButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#3069F7',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 12,
+    gap: 8,
+  },
+  allTopicsText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '800',
+  },
+});

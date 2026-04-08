@@ -116,8 +116,20 @@
     "chapter_subtitle": "WHAT IS A PACEMAKER?",
     "chapter_title": "What Is Pace Maker",
     "chapter_desc": "Understand what a pacemaker is and its role in maintaining a stable heart rhythm. Learn how the device supports patients with abnormal cardiac conditions. Explore its basic working mechanism and real-world clinical use. Build a clear conceptual foundation for further study of cardiac devices.",
-    "t1_title": "Definition & Purpose",
+    "t1_title": "Definition Purpose",
     "t2_title": "History & Evolution",
-    "t3_title": "Types of Pacemakers"
+    "t3_title": "Types of Pacemakers",
+    "topics_in_module": "{{count}} Topics in this module",
+    "attempt_quiz": "Attempt a Quiz",
+    "replay": "Replay",
+    "performance": "Performance",
+    "resume_topic": "Resume Topic",
+    "learning_units": "{{count}} Learning Units",
+    "current_progress": "CURRENT PROGRESS",
+    "requirement": "REQUIREMENT: LEVEL {{level}}",
+    "topics_details": "Topics Details",
+    "all_topics_btn": "All Topics",
+    "previous": "Previous",
+    "next": "Next"
   }
 }
