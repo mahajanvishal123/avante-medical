@@ -11,11 +11,13 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
 const ChapterItem = ({ number, title, status, current = false }) => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity 
@@ -31,16 +33,16 @@ const ChapterItem = ({ number, title, status, current = false }) => {
          )}
       </View>
       <View style={styles.chapterDetails}>
-        <Text style={styles.chapterMeta}>Chapter {number} {current && '(Current)'}</Text>
+        <Text style={styles.chapterMeta}>{t('modules.chapter_number', { number })} {current && t('modules.current')}</Text>
         <Text style={styles.chapterTitle}>{title}</Text>
       </View>
       {status === 'Completed' ? (
         <View style={styles.completedBadge}>
-          <Text style={styles.completedBadgeText}>Completed</Text>
+          <Text style={styles.completedBadgeText}>{t('levels.completed')}</Text>
         </View>
       ) : (current && (
         <View style={styles.resumeButtonMini}>
-          <Text style={styles.resumeButtonTextMini}>RESUME</Text>
+          <Text style={styles.resumeButtonTextMini}>{t('home.started').toUpperCase()}</Text>
         </View>
       ))}
     </TouchableOpacity>
@@ -50,16 +52,17 @@ const ChapterItem = ({ number, title, status, current = false }) => {
 export default function ModuleDetailsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
+          <TouchableOpacity onPress={() => router.push('/(tabs)/level-details')} style={styles.headerIcon}>
             <Ionicons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Module Details</Text>
+          <Text style={styles.headerTitle}>{t('modules.details_title')}</Text>
           <TouchableOpacity style={styles.headerIcon}>
             <Ionicons name="search" size={24} color="#fff" />
           </TouchableOpacity>
@@ -78,8 +81,8 @@ export default function ModuleDetailsScreen() {
           resizeMode="cover"
         >
           <View style={styles.bannerOverlay}>
-            <Text style={styles.bannerSubtitle}>Module 1.1: Pacemaker Fundamentals</Text>
-            <Text style={styles.bannerTitle}>Pacemaker Fundamentals — Description</Text>
+            <Text style={styles.bannerSubtitle}>{t('modules.module_subtitle')}</Text>
+            <Text style={styles.bannerTitle}>{t('modules.module_title')}</Text>
           </View>
         </ImageBackground>
 
@@ -87,10 +90,10 @@ export default function ModuleDetailsScreen() {
         <View style={styles.statsSection}>
            <View style={styles.statsHeader}>
               <View>
-                <Text style={styles.statsLabel}>OVERALL COMPLETION</Text>
+                <Text style={styles.statsLabel}>{t('levels.overall_completion')}</Text>
                 <Text style={styles.statsPercentage}>65%</Text>
               </View>
-              <Text style={styles.statsCount}>1 of 2 Chapters Complete</Text>
+              <Text style={styles.statsCount}>{t('modules.chapter_complete', { completed: 1, total: 2 })}</Text>
            </View>
            <View style={styles.progressBarTrack}>
               <View style={[styles.progressBar, { width: '65%' }]} />
@@ -99,28 +102,28 @@ export default function ModuleDetailsScreen() {
 
         {/* About Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>About this Module</Text>
+          <Text style={styles.sectionTitle}>{t('modules.about_module')}</Text>
           <Text style={styles.sectionText}>
-            Develop a solid understanding of pacemaker fundamentals, including how the device functions to regulate heart rhythm. Learn its clinical purpose in managing various cardiac conditions. Explore the key types of pacemakers and their practical applications in patient care. Build a foundation that prepares you for more advanced cardiac device concepts.
+            {t('modules.module_desc')}
           </Text>
           <TouchableOpacity>
-             <Text style={styles.readMore}>Read more</Text>
+             <Text style={styles.readMore}>{t('levels.read_more')}</Text>
           </TouchableOpacity>
         </View>
 
         {/* Chapters Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>All Chapters</Text>
+          <Text style={styles.sectionTitle}>{t('modules.all_chapters')}</Text>
           
           <ChapterItem 
             number={1} 
-            title="What Is a Pacemaker?" 
+            title={t('modules.c1_title')} 
             status="Completed" 
           />
 
           <ChapterItem 
             number={2} 
-            title="Key Terminology" 
+            title={t('modules.c2_title')} 
             status="Running"
             current={true} 
           />
@@ -130,7 +133,7 @@ export default function ModuleDetailsScreen() {
       {/* Floating Bottom Button */}
       <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, 15) }]}>
           <TouchableOpacity style={styles.continueButton}>
-             <Text style={styles.continueButtonText}>Continue Learning</Text>
+             <Text style={styles.continueButtonText}>{t('levels.continue_learning')}</Text>
           </TouchableOpacity>
       </View>
     </View>

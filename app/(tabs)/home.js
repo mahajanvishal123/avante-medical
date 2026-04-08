@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,8 @@ import {
   Image,
   Dimensions,
   Modal,
-  FlatList
+  FlatList,
+  Animated,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -43,6 +44,44 @@ export default function HomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const [isLangModalVisible, setIsLangModalVisible] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const toastOpacity = useRef(new Animated.Value(0)).current;
+  const toastTranslateY = useRef(new Animated.Value(-100)).current;
+
+  useEffect(() => {
+    // Show notification on mount
+    setShowToast(true);
+    Animated.parallel([
+      Animated.timing(toastOpacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.spring(toastTranslateY, {
+        toValue: 0,
+        friction: 4,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    // Hide after 4 seconds
+    const timer = setTimeout(() => {
+      Animated.parallel([
+        Animated.timing(toastOpacity, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(toastTranslateY, {
+          toValue: -100,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]).start(() => setShowToast(false));
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const currentLanguage = LANGUAGES.find(l => l.code === i18n.language) || LANGUAGES[0];
 
@@ -96,10 +135,6 @@ export default function HomeScreen() {
         <View style={styles.welcomeSection}>
           <Text style={styles.welcomeTitle}>{t('home.welcome_back', { name: 'Dr. Sarah' })}</Text>
           <Text style={styles.welcomeSub}>{t('home.courses_to_finish', { count: 3 })}</Text>
-          
-          <View style={styles.successBanner}>
-            <Text style={styles.successText}>{t('home.success_signup')}</Text>
-          </View>
         </View>
 
         {/* Level 1 Card */}
@@ -269,6 +304,28 @@ export default function HomeScreen() {
           </View>
         </TouchableOpacity>
       </Modal>
+
+      {/* Notification Toast */}
+      {showToast && (
+        <Animated.View 
+          style={[
+            styles.toastContainer, 
+            { 
+              opacity: toastOpacity,
+              transform: [{ translateY: toastTranslateY }],
+              top: insets.top + 10
+            }
+          ]}
+        >
+          <View style={styles.toastContent}>
+            <Ionicons name="checkmark-circle" size={24} color="#17B8A6" />
+            <Text style={styles.toastText}>{t('home.success_signup')}</Text>
+            <TouchableOpacity onPress={() => setShowToast(false)}>
+              <Ionicons name="close" size={20} color="#999" />
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      )}
     </View>
   );
 }
@@ -682,5 +739,33 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
     marginTop: 2,
+  },
+  toastContainer: {
+    position: 'absolute',
+    left: 20,
+    right: 20,
+    zIndex: 9999,
+    elevation: 10,
+  },
+  toastContent: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    borderLeftWidth: 4,
+    borderLeftColor: '#17B8A6',
+  },
+  toastText: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333',
+    marginLeft: 10,
   },
 });

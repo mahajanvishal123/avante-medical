@@ -12,11 +12,13 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
 const ModuleItem = ({ number, title, status, current = false }) => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity 
@@ -32,16 +34,16 @@ const ModuleItem = ({ number, title, status, current = false }) => {
          )}
       </View>
       <View style={styles.moduleDetails}>
-        <Text style={styles.moduleMeta}>Module {number} {current && '(Current)'}</Text>
+        <Text style={styles.moduleMeta}>{t('modules.module_number', { number })} {current && t('modules.current')}</Text>
         <Text style={styles.moduleTitle}>{title}</Text>
       </View>
       {status === 'Completed' ? (
         <View style={styles.completedBadge}>
-          <Text style={styles.completedBadgeText}>Completed</Text>
+          <Text style={styles.completedBadgeText}>{t('levels.completed')}</Text>
         </View>
       ) : (current && (
         <View style={styles.resumeButtonMini}>
-          <Text style={styles.resumeButtonTextMini}>RESUME</Text>
+          <Text style={styles.resumeButtonTextMini}>{t('home.started').toUpperCase()}</Text>
         </View>
       ))}
     </TouchableOpacity>
@@ -51,16 +53,17 @@ const ModuleItem = ({ number, title, status, current = false }) => {
 export default function LevelDetailsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
+          <TouchableOpacity onPress={() => router.push('/(tabs)/levels')} style={styles.headerIcon}>
             <Ionicons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Level Details</Text>
+          <Text style={styles.headerTitle}>{t('levels.details_title')}</Text>
           <TouchableOpacity style={styles.headerIcon}>
             <Ionicons name="search" size={24} color="#fff" />
           </TouchableOpacity>
@@ -79,8 +82,8 @@ export default function LevelDetailsScreen() {
           resizeMode="cover"
         >
           <View style={styles.bannerOverlay}>
-            <Text style={styles.bannerSubtitle}>Level 1 — Foundation: Device Introduction & Core Concepts</Text>
-            <Text style={styles.bannerTitle}>Foundation: System Components & Basic Operation</Text>
+            <Text style={styles.bannerSubtitle}>{t('levels.level_subtitle')}</Text>
+            <Text style={styles.bannerTitle}>{t('levels.level_title')}</Text>
           </View>
         </ImageBackground>
 
@@ -88,10 +91,10 @@ export default function LevelDetailsScreen() {
         <View style={styles.statsSection}>
            <View style={styles.statsHeader}>
               <View>
-                <Text style={styles.statsLabel}>OVERALL COMPLETION</Text>
+                <Text style={styles.statsLabel}>{t('levels.overall_completion')}</Text>
                 <Text style={styles.statsPercentage}>60%</Text>
               </View>
-              <Text style={styles.statsCount}>2 of 3 Module Complete</Text>
+              <Text style={styles.statsCount}>{t('levels.module_complete', { completed: 2, total: 3 })}</Text>
            </View>
            <View style={styles.progressBarTrack}>
               <View style={[styles.progressBar, { width: '60%' }]} />
@@ -100,28 +103,28 @@ export default function LevelDetailsScreen() {
 
         {/* About Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>About this Level</Text>
+          <Text style={styles.sectionTitle}>{t('levels.about_level')}</Text>
           <Text style={styles.sectionText}>
-            A comprehensive, interactive self-paced program designed to build practical knowledge of pacemaker technology, implantation basics, and patient management. Learners progress through structured modules combining clinical concepts, device functionality, and real-world case scenarios. Ideal for healthcare professionals seeking flexible, hands-on upskilling in cardiac rhythm management.
+            {t('levels.level_desc')}
           </Text>
           <TouchableOpacity>
-             <Text style={styles.readMore}>Read more</Text>
+             <Text style={styles.readMore}>{t('levels.read_more')}</Text>
           </TouchableOpacity>
         </View>
 
         {/* Modules Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>All Modules</Text>
+          <Text style={styles.sectionTitle}>{t('levels.all_modules')}</Text>
           
           <ModuleItem 
             number={1} 
-            title="Pacemaker Fundamentals" 
+            title={t('levels.m1_title')} 
             status="Completed" 
           />
 
           <ModuleItem 
             number={3} 
-            title="Basic Electrocardiogram (ECG) Interpretation" 
+            title={t('levels.m2_title')} 
             status="Running"
             current={true} 
           />
@@ -131,7 +134,7 @@ export default function LevelDetailsScreen() {
       {/* Floating Bottom Button */}
       <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, 15) }]}>
           <TouchableOpacity style={styles.continueButton}>
-             <Text style={styles.continueButtonText}>Continue Learning</Text>
+             <Text style={styles.continueButtonText}>{t('levels.continue_learning')}</Text>
           </TouchableOpacity>
       </View>
     </View>

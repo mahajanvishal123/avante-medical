@@ -12,10 +12,12 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
 const TopicItem = ({ number, title, status, current = false }) => {
+  const { t } = useTranslation();
   return (
     <View style={[styles.topicCard, current && styles.topicCardCurrent]}>
       <View style={[styles.topicIconContainer, status === 'Completed' && styles.topicIconCompleted]}>
@@ -26,16 +28,16 @@ const TopicItem = ({ number, title, status, current = false }) => {
          )}
       </View>
       <View style={styles.topicDetails}>
-        <Text style={styles.topicMeta}>Topic {number} {current && '(Current)'}</Text>
+        <Text style={styles.topicMeta}>{t('chapters.topic_number', { number })} {current && t('modules.current')}</Text>
         <Text style={styles.topicTitle}>{title}</Text>
       </View>
       {status === 'Completed' ? (
         <View style={styles.completedBadge}>
-          <Text style={styles.completedBadgeText}>Completed</Text>
+          <Text style={styles.completedBadgeText}>{t('levels.completed')}</Text>
         </View>
       ) : (current && (
         <TouchableOpacity style={styles.resumeButtonMini}>
-          <Text style={styles.resumeButtonTextMini}>RESUME</Text>
+          <Text style={styles.resumeButtonTextMini}>{t('home.started').toUpperCase()}</Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -45,16 +47,17 @@ const TopicItem = ({ number, title, status, current = false }) => {
 export default function ChapterDetailsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
+          <TouchableOpacity onPress={() => router.push('/(tabs)/module-details')} style={styles.headerIcon}>
             <Ionicons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Chapter Details</Text>
+          <Text style={styles.headerTitle}>{t('chapters.details_title')}</Text>
           <TouchableOpacity style={styles.headerIcon}>
             <Ionicons name="ellipsis-horizontal" size={24} color="#fff" />
           </TouchableOpacity>
@@ -81,8 +84,8 @@ export default function ChapterDetailsScreen() {
                  />
                </View>
             </View>
-            <Text style={styles.bannerSubtitle}>WHAT IS A PACEMAKER?</Text>
-            <Text style={styles.bannerTitle}>What Is Pace Maker</Text>
+            <Text style={styles.bannerSubtitle}>{t('chapters.chapter_subtitle')}</Text>
+            <Text style={styles.bannerTitle}>{t('chapters.chapter_title')}</Text>
           </View>
         </ImageBackground>
 
@@ -90,10 +93,10 @@ export default function ChapterDetailsScreen() {
         <View style={styles.statsSection}>
            <View style={styles.statsHeader}>
               <View>
-                <Text style={styles.statsLabel}>OVERALL COMPLETION</Text>
+                <Text style={styles.statsLabel}>{t('levels.overall_completion')}</Text>
                 <Text style={styles.statsPercentage}>65%</Text>
               </View>
-              <Text style={styles.statsCount}>1 of 3 Topics Complete</Text>
+              <Text style={styles.statsCount}>{t('chapters.topic_complete', { completed: 1, total: 3 })}</Text>
            </View>
            <View style={styles.progressBarTrack}>
               <View style={[styles.progressBar, { width: '65%' }]} />
@@ -102,34 +105,34 @@ export default function ChapterDetailsScreen() {
 
         {/* About Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>About this Chapter</Text>
+          <Text style={styles.sectionTitle}>{t('chapters.about_chapter')}</Text>
           <Text style={styles.sectionText}>
-            Understand what a pacemaker is and its role in maintaining a stable heart rhythm. Learn how the device supports patients with abnormal cardiac conditions. Explore its basic working mechanism and real-world clinical use. Build a clear conceptual foundation for further study of cardiac devices.
+            {t('chapters.chapter_desc')}
           </Text>
           <TouchableOpacity>
-             <Text style={styles.readMore}>Read more</Text>
+             <Text style={styles.readMore}>{t('levels.read_more')}</Text>
           </TouchableOpacity>
         </View>
 
         {/* Topics Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>All Topics</Text>
+          <Text style={styles.sectionTitle}>{t('chapters.all_topics')}</Text>
           
           <TopicItem 
             number={1} 
-            title="Definition & Purpose" 
+            title={t('chapters.t1_title')} 
             status="Completed" 
           />
 
           <TopicItem 
             number={2} 
-            title="History & Evolution" 
+            title={t('chapters.t2_title')} 
             status="Completed" 
           />
 
           <TopicItem 
             number={3} 
-            title="Types of Pacemakers" 
+            title={t('chapters.t3_title')} 
             status="Running"
             current={true} 
           />
@@ -139,7 +142,7 @@ export default function ChapterDetailsScreen() {
       {/* Floating Bottom Button */}
       <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, 15) }]}>
           <TouchableOpacity style={styles.continueButton}>
-             <Text style={styles.continueButtonText}>Continue Learning</Text>
+             <Text style={styles.continueButtonText}>{t('levels.continue_learning')}</Text>
           </TouchableOpacity>
       </View>
     </View>

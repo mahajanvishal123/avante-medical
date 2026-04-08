@@ -80,6 +80,44 @@
     "title_f1": "Foundation: Device Introduction & Core Concepts",
     "title_f2": "Foundation: System Components & Basic Operation",
     "title_i1": "Intermediate: Procedural Workflows & Configurations",
-    "title_i2": "Intermediate: Workflows, Configurations & Scenarios"
+    "title_i2": "Intermediate: Workflows, Configurations & Scenarios",
+    "details_title": "Level Details",
+    "about_level": "About this Level",
+    "all_modules": "All Modules",
+    "overall_completion": "OVERALL COMPLETION",
+    "module_complete": "{{completed}} of {{total}} Module Complete",
+    "continue_learning": "Continue Learning",
+    "read_more": "Read more",
+    "level_subtitle": "Level 1 — Foundation: Device Introduction & Core Concepts",
+    "level_title": "Foundation: System Components & Basic Operation",
+    "level_desc": "A comprehensive, interactive self-paced program designed to build practical knowledge of pacemaker technology, implantation basics, and patient management. Learners progress through structured modules combining clinical concepts, device functionality, and real-world case scenarios. Ideal for healthcare professionals seeking flexible, hands-on upskilling in cardiac rhythm management.",
+    "m1_title": "Pacemaker Fundamentals",
+    "m2_title": "Basic Electrocardiogram (ECG) Interpretation"
+  },
+  "modules": {
+    "details_title": "Module Details",
+    "about_module": "About this Module",
+    "all_chapters": "All Chapters",
+    "module_number": "Module {{number}}",
+    "current": "(Current)",
+    "chapter_complete": "{{completed}} of {{total}} Chapters Complete",
+    "module_subtitle": "Module 1.1: Pacemaker Fundamentals",
+    "module_title": "Pacemaker Fundamentals — Description",
+    "module_desc": "Develop a solid understanding of pacemaker fundamentals, including how the device functions to regulate heart rhythm. Learn its clinical purpose in managing various cardiac conditions. Explore the key types of pacemakers and their practical applications in patient care. Build a foundation that prepares you for more advanced cardiac device concepts.",
+    "c1_title": "What Is a Pacemaker?",
+    "c2_title": "Key Terminology"
+  },
+  "chapters": {
+    "details_title": "Chapter Details",
+    "about_chapter": "About this Chapter",
+    "all_topics": "All Topics",
+    "topic_number": "Topic {{number}}",
+    "topic_complete": "{{completed}} of {{total}} Topics Complete",
+    "chapter_subtitle": "WHAT IS A PACEMAKER?",
+    "chapter_title": "What Is Pace Maker",
+    "chapter_desc": "Understand what a pacemaker is and its role in maintaining a stable heart rhythm. Learn how the device supports patients with abnormal cardiac conditions. Explore its basic working mechanism and real-world clinical use. Build a clear conceptual foundation for further study of cardiac devices.",
+    "t1_title": "Definition & Purpose",
+    "t2_title": "History & Evolution",
+    "t3_title": "Types of Pacemakers"
   }
 }
