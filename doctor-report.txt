@@ -1,0 +1,22 @@
+Running 17 checks on your project...
+15/17 checks passed. 2 checks failed. Possible issues detected:
+Use the --verbose flag to see more details about passed checks.
+
+Γ£û Check Expo config (app.json/ app.config.js) schema
+Γ£û Check that packages match versions required by installed Expo SDK
+
+≡ƒöº Patch version mismatches
+package         expected  found    
+expo            ~55.0.12  55.0.11  
+expo-constants  ~55.0.12  55.0.11  
+expo-router     ~55.0.11  55.0.10  
+
+Changelogs:
+- expo-constants ΓåÆ https://github.com/expo/expo/blob/sdk-55/packages/expo-constants/CHANGELOG.md
+- expo-router ΓåÆ https://github.com/expo/expo/blob/sdk-55/packages/expo-router/CHANGELOG.md
+
+3 packages out of date.
+Advice:
+Use 'npx expo install --check' to review and upgrade your dependencies.
+To ignore specific packages, add them to "expo.install.exclude" in package.json. Learn more: https://expo.fyi/dependency-validation
+
