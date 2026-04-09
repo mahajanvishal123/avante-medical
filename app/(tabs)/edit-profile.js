@@ -47,7 +47,7 @@ export default function EditProfileScreen() {
         <Text style={styles.headerTitle}>{t('profile.edit_profile')}</Text>
         <View style={{ width: wp(40) }} />
       </View>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
         <FormField label={t('common.employee_id')} placeholder="e.g. EMP-12345" value={employeeId} onChangeText={setEmployeeId} />
         <FormField label={t('common.full_name')} placeholder="e.g. Dr. Sarah Jenkins" value={fullName} onChangeText={setFullName} />
         <FormField label={t('common.email')} placeholder="sarah.jenkins@avantemedical.com" value={email} onChangeText={setEmail} />
@@ -59,6 +59,10 @@ export default function EditProfileScreen() {
           <Text style={styles.saveBtnText}>{t('common.save')}</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      <View style={styles.footerSection}>
+        <Text style={styles.footerText}>Avante Medical LMS v2.4.0</Text>
+      </View>
     </View>
   );
 }
@@ -77,4 +81,6 @@ const styles = StyleSheet.create({
   selectValue: { fontSize: fs(14), color: AppColors.textDark, fontWeight: '500' },
   saveBtn: { height: hp(55), backgroundColor: AppColors.teal, borderRadius: ms(12), alignItems: 'center', justifyContent: 'center', marginTop: hp(10), elevation: 4, shadowColor: AppColors.teal, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8 },
   saveBtnText: { color: AppColors.textWhite, fontSize: fs(17), fontWeight: '700' },
+  footerSection: { alignItems: 'center', paddingBottom: hp(15), backgroundColor: AppColors.backgroundLight },
+  footerText: { fontSize: fs(12), color: AppColors.placeholder, fontWeight: '500' },
 });
