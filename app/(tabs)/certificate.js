@@ -9,12 +9,14 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { wp, hp, ms, fs } from '../../utils/responsive';
 import { AppColors } from '../../constants/Theme';
 
 export default function CertificateScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -22,7 +24,7 @@ export default function CertificateScreen() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <Ionicons name="chevron-back" size={ms(24)} color="#fff" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>My Certificate</Text>
+        <Text style={styles.headerTitle}>{t('certificate.my_certificate')}</Text>
         <View style={{ width: wp(40) }} />
       </View>
 
@@ -34,35 +36,35 @@ export default function CertificateScreen() {
         <View style={styles.certOuterBorder}>
            <View style={styles.certInnerBorder}>
               <Text style={styles.logoTitle}>AVANTE MEDICAL</Text>
-              <Text style={styles.logoSubtitle}>LEARNING MANAGEMENT SYSTEM</Text>
+              <Text style={styles.logoSubtitle}>{t('certificate.lms')}</Text>
 
-              <Text style={styles.certifyText}>This is to certify that</Text>
+              <Text style={styles.certifyText}>{t('certificate.certify_that')}</Text>
               
               <View style={styles.nameContainer}>
                  <Text style={styles.studentName}>Alex J. Harrison</Text>
                  <View style={styles.nameUnderline} />
               </View>
 
-              <Text style={styles.completionText}>has successfully completed the{'\n'}course</Text>
+              <Text style={styles.completionText}>{t('certificate.completed_course')}</Text>
 
-              <Text style={styles.courseTitle}>Advanced Clinical{'\n'}Diagnostics & Patient{'\n'}Care</Text>
+              <Text style={styles.courseTitle}>{t('levels.title_f1')}</Text>
 
-              <Text style={styles.dateText}>Issued on: October 24, 2023</Text>
+              <Text style={styles.dateText}>{t('certificate.issued_on', { date: 'October 24, 2026' })}</Text>
            </View>
         </View>
 
         {/* Action Buttons */}
-        <TouchableOpacity style={styles.downloadBtn}>
-           <Ionicons name="download-outline" size={ms(20)} color="#fff" />
-           <Text style={styles.downloadBtnText}>Download PDF</Text>
-        </TouchableOpacity>
+         <TouchableOpacity style={styles.downloadBtn}>
+            <Ionicons name="download-outline" size={ms(20)} color="#fff" />
+            <Text style={styles.downloadBtnText}>{t('certificate.download_pdf')}</Text>
+         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.shareBtn}>
-           <Ionicons name="logo-linkedin" size={ms(20)} color="#3069F7" />
-           <Text style={styles.shareBtnText}>Share to LinkedIn</Text>
-        </TouchableOpacity>
+         <TouchableOpacity style={styles.shareBtn}>
+            <Ionicons name="logo-linkedin" size={ms(20)} color="#3069F7" />
+            <Text style={styles.shareBtnText}>{t('certificate.share_linkedin')}</Text>
+         </TouchableOpacity>
 
-        <Text style={styles.verifyText}>Verification ID: AV-9982-XM-2023</Text>
+        <Text style={styles.verifyText}>{t('certificate.verify_id', { id: 'AV-9982-XM-2026' })}</Text>
 
       </ScrollView>
     </View>

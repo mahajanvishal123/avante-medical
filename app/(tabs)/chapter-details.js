@@ -50,7 +50,7 @@ const TopicItem = ({ number, title, status, current = false }) => {
           style={styles.resumeButtonMini}
           onPress={() => router.push('/(tabs)/subtopic-list')}
         >
-          <Text style={styles.resumeButtonTextMini}>RESUME</Text>
+          <Text style={styles.resumeButtonTextMini}>{t('chapters.resume')}</Text>
         </TouchableOpacity>
       ))}
     </TouchableOpacity>
@@ -67,7 +67,7 @@ export default function ChapterDetailsScreen() {
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => router.push('/(tabs)/module-details')} style={styles.headerIcon}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
             <Ionicons name="chevron-back" size={ms(24)} color="#fff" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('chapters.details_title')}</Text>

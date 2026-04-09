@@ -9,12 +9,14 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { wp, hp, ms, fs } from '../../utils/responsive';
+import { useTranslation } from 'react-i18next';
+import { wp, hp, ms, fs, isSmallDevice } from '../../utils/responsive';
 import { AppColors } from '../../constants/Theme';
 
 export default function LevelResultScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -23,7 +25,7 @@ export default function LevelResultScreen() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <Ionicons name="chevron-back" size={ms(22)} color="#fff" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Level Result</Text>
+        <Text style={styles.headerTitle}>{t('levels.level_result') || 'Level Result'}</Text>
         <View style={{ width: wp(40) }} />
       </View>
 
@@ -32,18 +34,30 @@ export default function LevelResultScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Celebration Section */}
-        <View style={styles.celebrationSection}>
-          <Text style={styles.partyEmoji}>🎉</Text>
-          <Text style={styles.wowText}>✨ WOW! ✨</Text>
-          <Text style={styles.congratsText}>Congratulations, you did it!</Text>
-          <Text style={styles.studentName}>Jessica Parker</Text>
-
-          <View style={styles.courseBadge}>
-            <Text style={styles.courseBadgeText}>
-              Foundation: Device Introduction{'\n'}& Core Concepts
+          <View style={styles.celebrationSection}>
+            <Text style={styles.partyEmoji}>🎉</Text>
+            <Text 
+              style={styles.wowText}
+              adjustsFontSizeToFit
+              numberOfLines={1}
+            >
+              {t('common.wow')}
             </Text>
+            <Text style={styles.congratsText}>{t('common.congrats')}</Text>
+            <Text 
+              style={styles.studentName}
+              adjustsFontSizeToFit
+              numberOfLines={1}
+            >
+              Jessica Parker
+            </Text>
+  
+            <View style={styles.courseBadge}>
+              <Text style={styles.courseBadgeText}>
+                {t('levels.title_f1')}
+              </Text>
+            </View>
           </View>
-        </View>
 
         {/* Certificate Card */}
         <View style={styles.certificateCard}>
@@ -54,7 +68,7 @@ export default function LevelResultScreen() {
                 <Ionicons name="book" size={ms(18)} color="#8B6914" />
               </View>
               <View style={styles.certTitleContainer}>
-                <Text style={styles.certTitle}>Certificate of Completion</Text>
+                <Text style={styles.certTitle}>{t('common.cert_completion')}</Text>
               </View>
             </View>
 
@@ -62,12 +76,12 @@ export default function LevelResultScreen() {
 
             {/* Certificate Details */}
             <View style={styles.certRow}>
-              <Text style={styles.certLabel}>Issued to</Text>
+              <Text style={styles.certLabel}>{t('common.issued_to')}</Text>
               <Text style={styles.certValue}>Jessica Parker</Text>
             </View>
 
             <View style={styles.certRow}>
-              <Text style={styles.certLabel}>Program</Text>
+              <Text style={styles.certLabel}>{t('common.program')}</Text>
               <View style={styles.certValueCol}>
                 <Text style={styles.certValueSmall}>Masterclass: What is</Text>
                 <Text style={styles.certValueSmall}>Pace Maker</Text>
@@ -75,18 +89,24 @@ export default function LevelResultScreen() {
             </View>
 
             <View style={styles.certRow}>
-              <Text style={styles.certLabel}>Completion date</Text>
+              <Text style={styles.certLabel}>{t('common.completion_date')}</Text>
               <Text style={styles.certValue}>March 22, 2026</Text>
             </View>
 
             <View style={styles.certRow}>
-              <Text style={styles.certLabel}>Certificate ID</Text>
+              <Text style={styles.certLabel}>{t('common.cert_id')}</Text>
               <Text style={[styles.certValue, styles.certIdText]}>CH5303-8T0V</Text>
             </View>
 
             {/* Excellence Award Badge */}
             <View style={styles.awardBadge}>
-              <Text style={styles.awardBadgeText}>✨ Excellence Award • Grade: A+ ✨</Text>
+              <Text 
+                style={styles.awardBadgeText}
+                adjustsFontSizeToFit
+                numberOfLines={1}
+              >
+                {t('common.excellence_award')}
+              </Text>
             </View>
           </View>
         </View>
@@ -97,18 +117,18 @@ export default function LevelResultScreen() {
             style={styles.saveCertBtn}
             onPress={() => router.push('/(tabs)/certificate')}
           >
-            <Text style={styles.saveCertBtnText}>Save Certificate</Text>
+            <Text style={styles.saveCertBtnText}>{t('common.save_cert')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.shareCertBtn}>
-            <Text style={styles.shareCertBtnText}>Share Certificate</Text>
+            <Text style={styles.shareCertBtnText}>{t('common.share_cert')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.startNewBtn}
             onPress={() => router.push('/(tabs)/levels')}
           >
-            <Text style={styles.startNewBtnText}>Start New Level</Text>
+            <Text style={styles.startNewBtnText}>{t('common.start_new_level')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -140,7 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     color: AppColors.textWhite,
-    fontSize: fs(17),
+    fontSize: fs(isSmallDevice ? 15 : 17),
     fontWeight: '700',
     letterSpacing: 0.3,
   },
@@ -161,7 +181,7 @@ const styles = StyleSheet.create({
     marginBottom: hp(8),
   },
   wowText: {
-    fontSize: fs(26),
+    fontSize: fs(isSmallDevice ? 22 : 26),
     fontWeight: '900',
     color: AppColors.warning,
     marginBottom: hp(8),
@@ -174,7 +194,7 @@ const styles = StyleSheet.create({
     marginBottom: hp(10),
   },
   studentName: {
-    fontSize: fs(22),
+    fontSize: fs(isSmallDevice ? 18 : 22),
     fontWeight: '900',
     color: AppColors.textDark,
     marginBottom: hp(14),
@@ -215,8 +235,8 @@ const styles = StyleSheet.create({
     borderColor: '#D4C48A',
     borderRadius: ms(13),
     borderStyle: 'dashed',
-    paddingHorizontal: wp(16),
-    paddingVertical: hp(18),
+    paddingHorizontal: wp(isSmallDevice ? 12 : 16),
+    paddingVertical: hp(isSmallDevice ? 14 : 18),
   },
   certHeaderRow: {
     flexDirection: 'row',

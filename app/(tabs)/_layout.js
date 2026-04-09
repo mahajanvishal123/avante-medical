@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router';
+import { Tabs, usePathname } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,22 @@ import { AppColors } from '../../constants/Theme';
 
 export default function TabLayout() {
   const { t } = useTranslation();
+  const pathname = usePathname();
+
+  // Helper to determine if a tab should be highlighted
+  const isTabActive = (tabName) => {
+    if (tabName === 'home') return pathname === '/home' || pathname === '/';
+    if (tabName === 'levels') {
+      return ['/levels', '/level-details', '/module-details', '/chapter-details', '/topic-details', '/subtopic-list', '/exam', '/quiz-result'].includes(pathname);
+    }
+    if (tabName === 'analytics') {
+      return ['/analytics', '/level-result', '/certificate'].includes(pathname);
+    }
+    if (tabName === 'profile') {
+      return ['/profile', '/edit-profile', '/change-password'].includes(pathname);
+    }
+    return false;
+  };
 
   return (
     <Tabs
@@ -31,36 +47,56 @@ export default function TabLayout() {
         name="home"
         options={{
           title: t('tabs.home'),
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name={focused ? "home" : "home-outline"} size={26} color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name={isTabActive('home') ? "home" : "home-outline"} size={26} color={isTabActive('home') ? AppColors.primary : color} />
           ),
+          tabBarLabelStyle: {
+            color: isTabActive('home') ? AppColors.primary : AppColors.placeholder,
+            fontSize: 12,
+            fontWeight: '500',
+          }
         }}
       />
       <Tabs.Screen
         name="levels"
         options={{
           title: t('tabs.levels'),
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name={focused ? "book" : "book-outline"} size={26} color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name={isTabActive('levels') ? "book" : "book-outline"} size={26} color={isTabActive('levels') ? AppColors.primary : color} />
           ),
+          tabBarLabelStyle: {
+            color: isTabActive('levels') ? AppColors.primary : AppColors.placeholder,
+            fontSize: 12,
+            fontWeight: '500',
+          }
         }}
       />
       <Tabs.Screen
         name="analytics"
         options={{
           title: t('tabs.analytics'),
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name={focused ? "stats-chart" : "stats-chart-outline"} size={26} color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name={isTabActive('analytics') ? "stats-chart" : "stats-chart-outline"} size={26} color={isTabActive('analytics') ? AppColors.primary : color} />
           ),
+          tabBarLabelStyle: {
+            color: isTabActive('analytics') ? AppColors.primary : AppColors.placeholder,
+            fontSize: 12,
+            fontWeight: '500',
+          }
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: t('tabs.profile'),
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name={focused ? "person" : "person-outline"} size={26} color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name={isTabActive('profile') ? "person" : "person-outline"} size={26} color={isTabActive('profile') ? AppColors.primary : color} />
           ),
+          tabBarLabelStyle: {
+            color: isTabActive('profile') ? AppColors.primary : AppColors.placeholder,
+            fontSize: 12,
+            fontWeight: '500',
+          }
         }}
       />
       <Tabs.Screen

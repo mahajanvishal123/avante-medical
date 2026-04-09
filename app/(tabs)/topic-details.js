@@ -22,11 +22,10 @@ export default function TopicDetailsScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
-        <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => router.push('/(tabs)/chapter-details')} style={styles.headerIcon}>
-            <Ionicons name="arrow-back" size={ms(24)} color="#fff" />
-          </TouchableOpacity>
+      <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
+          <Ionicons name="chevron-back" size={ms(24)} color="#fff" />
+        </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
              <Text style={styles.headerSubtitle}>TOPIC: HEART CHAMBERS</Text>
              <Text style={styles.headerTitle}>{t('chapters.topics_details')}</Text>
@@ -35,7 +34,6 @@ export default function TopicDetailsScreen() {
             <Ionicons name="search" size={ms(24)} color="#fff" />
           </TouchableOpacity>
         </View>
-      </View>
 
       <ScrollView 
         style={styles.content} 

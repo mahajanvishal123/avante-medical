@@ -26,7 +26,7 @@ export default function ChangePasswordScreen() {
         <Text style={styles.headerTitle}>{t('profile.change_password')}</Text>
         <View style={{ width: wp(40) }} />
       </View>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
         <View style={styles.fieldContainer}>
           <Text style={styles.fieldLabel}>{t('profile.current_password')}</Text>
           <TextInput style={styles.fieldInput} placeholder={t('profile.current_password')} placeholderTextColor={AppColors.placeholder} value={currentPassword} onChangeText={setCurrentPassword} secureTextEntry={true} />
@@ -43,6 +43,10 @@ export default function ChangePasswordScreen() {
           <Text style={styles.updateBtnText}>{t('common.update')}</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      <View style={styles.footerSection}>
+        <Text style={styles.footerText}>Avante Medical LMS v2.4.0</Text>
+      </View>
     </View>
   );
 }
@@ -58,4 +62,6 @@ const styles = StyleSheet.create({
   fieldInput: { height: hp(52), backgroundColor: AppColors.backgroundWhite, borderRadius: ms(12), borderWidth: 1.5, borderColor: AppColors.border, paddingHorizontal: wp(16), fontSize: fs(14), color: AppColors.textDark, fontWeight: '500' },
   updateBtn: { height: hp(55), backgroundColor: AppColors.teal, borderRadius: ms(12), alignItems: 'center', justifyContent: 'center', marginTop: hp(15), elevation: 4, shadowColor: AppColors.teal, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8 },
   updateBtnText: { color: AppColors.textWhite, fontSize: fs(17), fontWeight: '700' },
+  footerSection: { alignItems: 'center', paddingBottom: hp(15), backgroundColor: AppColors.backgroundLight },
+  footerText: { fontSize: fs(12), color: AppColors.placeholder, fontWeight: '500' },
 });

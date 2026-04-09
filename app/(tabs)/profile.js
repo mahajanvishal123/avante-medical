@@ -34,14 +34,10 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
-          <Ionicons name="chevron-back" size={ms(22)} color={AppColors.textWhite} />
-        </TouchableOpacity>
         <Text style={styles.headerTitle}>{t('profile.title')}</Text>
-        <View style={{ width: wp(40) }} />
       </View>
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.avatarSection}>
           <View style={styles.avatarWrapper}>
             <Image source={{ uri: 'https://randomuser.me/api/portraits/men/32.jpg' }} style={styles.avatar} />
@@ -61,12 +57,14 @@ export default function ProfileScreen() {
           <MenuItem icon="create-outline" label={t('profile.edit_profile')} onPress={() => router.push('/(tabs)/edit-profile')} />
           <MenuItem icon="lock-closed-outline" label={t('profile.change_password')} onPress={() => router.push('/(tabs)/change-password')} />
           <MenuItem icon="notifications-outline" label={t('profile.notifications')} onPress={() => {}} />
-          <MenuItem icon="log-out-outline" label={t('profile.logout')} isLogout={true} onPress={() => {}} />
+          <MenuItem icon="log-out-outline" label={t('profile.logout')} isLogout={true} onPress={() => router.replace('/(auth)/login')} />
         </View>
-        <View style={styles.footerSection}>
-          <Text style={styles.footerText}>Avante Medical LMS v2.4.0</Text>
-        </View>
+
       </ScrollView>
+
+      <View style={styles.footerSection}>
+        <Text style={styles.footerText}>Avante Medical LMS v2.4.0</Text>
+      </View>
     </View>
   );
 }
@@ -93,6 +91,6 @@ const styles = StyleSheet.create({
   menuIconLogout: { backgroundColor: AppColors.badgeDangerBg },
   menuLabel: { flex: 1, fontSize: fs(15), fontWeight: '600', color: AppColors.textDark },
   menuLabelLogout: { color: AppColors.danger, fontWeight: '700' },
-  footerSection: { alignItems: 'center', paddingTop: hp(40), paddingBottom: hp(20) },
+  footerSection: { alignItems: 'center', paddingBottom: hp(15), backgroundColor: AppColors.backgroundLight },
   footerText: { fontSize: fs(12), color: AppColors.placeholder, fontWeight: '500' },
 });

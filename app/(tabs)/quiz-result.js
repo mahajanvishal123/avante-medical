@@ -10,6 +10,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { wp, hp, ms, fs, SCREEN_WIDTH } from '../../utils/responsive';
 import { AppColors } from '../../constants/Theme';
 
@@ -29,14 +30,15 @@ const ConfettiBackground = () => (
 export default function QuizResultScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
       <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
-        <TouchableOpacity onPress={() => router.push('/(tabs)/exam')} style={styles.backBtn}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <Ionicons name="chevron-back" size={ms(24)} color="#fff" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Quiz Result</Text>
+        <Text style={styles.headerTitle}>{t('exam.quiz_result')}</Text>
         <View style={{ width: wp(40) }} />
       </View>
 
@@ -50,19 +52,19 @@ export default function QuizResultScreen() {
         <View style={styles.scoreSection}>
            <View style={styles.scoreCircle}>
               <Text style={styles.scoreText}>85%</Text>
-              <Text style={styles.scoreLabel}>SCORE</Text>
+              <Text style={styles.scoreLabel}>{t('exam.score')}</Text>
            </View>
         </View>
 
         {/* Congrats Box */}
         <View style={styles.congratsBox}>
-           <Text style={styles.congratsTitle}>Congratulations!</Text>
+           <Text style={styles.congratsTitle}>{t('exam.congratulations')}</Text>
            <Text style={styles.congratsDesc}>
-              You have successfully passed the Cardiology{'\n'}Module Quiz.
+              {t('exam.success_msg')}
            </Text>
         </View>
 
-        <Text style={styles.sectionTitle}>PERFORMANCE DETAILS</Text>
+        <Text style={styles.sectionTitle}>{t('exam.performance_details')}</Text>
 
         <View style={styles.statsRow}>
            <View style={styles.statCardHalf}>
@@ -71,7 +73,7 @@ export default function QuizResultScreen() {
               </View>
               <View style={styles.statTexts}>
                  <Text style={styles.statValue}>17</Text>
-                 <Text style={styles.statLabel}>Correct</Text>
+                 <Text style={styles.statLabel}>{t('exam.correct')}</Text>
               </View>
            </View>
 
@@ -81,7 +83,7 @@ export default function QuizResultScreen() {
               </View>
               <View style={styles.statTexts}>
                  <Text style={styles.statValue}>3</Text>
-                 <Text style={styles.statLabel}>Incorrect</Text>
+                 <Text style={styles.statLabel}>{t('exam.incorrect')}</Text>
               </View>
            </View>
         </View>
@@ -91,23 +93,23 @@ export default function QuizResultScreen() {
               <View style={[styles.statIconBadge, { backgroundColor: '#F0F5FF' }]}>
                  <Ionicons name="time" size={ms(16)} color="#3069F7" />
               </View>
-              <Text style={styles.fullStatLabel}>Total Attempts</Text>
+              <Text style={styles.fullStatLabel}>{t('exam.total_attempts')}</Text>
            </View>
            <Text style={styles.fullStatValue}>2</Text>
         </View>
 
         <TouchableOpacity style={styles.certButton} onPress={() => router.push('/(tabs)/certificate')}>
-           <Text style={styles.certButtonText}>Earn Your Certificate</Text>
+           <Text style={styles.certButtonText}>{t('exam.earn_cert')}</Text>
         </TouchableOpacity>
 
         <View style={styles.actionRow}>
            <TouchableOpacity style={styles.actionBtn}>
               <Ionicons name="eye-outline" size={ms(18)} color="#333" />
-              <Text style={styles.actionBtnText}>Review</Text>
+              <Text style={styles.actionBtnText}>{t('exam.review')}</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.actionBtn}>
               <Ionicons name="refresh-outline" size={ms(18)} color="#333" />
-              <Text style={styles.actionBtnText}>Retry</Text>
+              <Text style={styles.actionBtnText}>{t('exam.retry')}</Text>
            </TouchableOpacity>
         </View>
 

@@ -45,7 +45,7 @@ const TopicCard = ({
       <View style={styles.progressContainer}>
         <View style={styles.progressHeader}>
           <Text style={styles.progressLabel}>
-            {status === 'Completed' ? 'COMPLETED' : (locked ? 'LOCKED' : t('chapters.current_progress'))}
+            {status === 'Completed' ? t('chapters.completed') : (locked ? t('chapters.locked') : t('chapters.current_progress'))}
           </Text>
           <Text style={[styles.progressPercentage, status === 'Completed' && { color: '#17B8A6' }]}>
             {progress}%
@@ -107,12 +107,12 @@ export default function SubtopicListScreen() {
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => router.push('/(tabs)/chapter-details')} style={styles.headerIcon}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
             <Ionicons name="chevron-back" size={ms(24)} color="#fff" />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
-            <Text style={styles.headerSubtitle}>CHAPTER: PACEMAKER ECG PATTERNS</Text>
-            <Text style={styles.headerTitle}>Topics</Text>
+            <Text style={styles.headerSubtitle}>{t('chapters.chapter_label')}</Text>
+            <Text style={styles.headerTitle}>{t('chapters.topics_title')}</Text>
           </View>
           <TouchableOpacity style={styles.headerIcon}>
             <Ionicons name="search" size={ms(24)} color="#fff" />
@@ -128,7 +128,7 @@ export default function SubtopicListScreen() {
         <View style={styles.subHeader}>
           <Text style={styles.topicsCount}>{t('chapters.topics_in_module', { count: 3 })}</Text>
           <View style={styles.levelBadge}>
-            <Text style={styles.levelBadgeText}>Level 2</Text>
+            <Text style={styles.levelBadgeText}>{t('chapters.level_n', { number: 2 })}</Text>
           </View>
         </View>
 
@@ -152,7 +152,7 @@ export default function SubtopicListScreen() {
 
         <TopicCard
           image={require('../../assets/my-level-3.png')}
-          title="Label paced ECG trace"
+          title={t('chapters.p_ecg_trace')}
           units={8}
           progress={0}
           status="Locked"
@@ -162,7 +162,7 @@ export default function SubtopicListScreen() {
 
         <TopicCard
           image={require('../../assets/level-detail-1.png')}
-          title="Label paced ECG trace"
+          title={t('chapters.p_ecg_trace')}
           units={8}
           progress={0}
           status="Locked"

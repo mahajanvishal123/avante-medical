@@ -58,7 +58,7 @@ export default function ModuleDetailsScreen() {
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => router.push('/(tabs)/level-details')} style={styles.headerIcon}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
             <Ionicons name="arrow-back" size={ms(24)} color="#fff" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('modules.details_title')}</Text>

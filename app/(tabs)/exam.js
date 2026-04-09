@@ -9,6 +9,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { wp, hp, ms, fs } from '../../utils/responsive';
 import { AppColors } from '../../constants/Theme';
 
@@ -37,7 +38,15 @@ const OptionItem = ({ opt, selected, onPress }) => {
 export default function ExamScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { t } = useTranslation();
   const [selected, setSelected] = useState('B');
+
+  const OPTIONS = [
+    { id: 'A', text: t('exam.opt_rca') },
+    { id: 'B', text: t('exam.opt_lad') },
+    { id: 'C', text: t('exam.opt_lcx') },
+    { id: 'D', text: t('exam.opt_pda') },
+  ];
 
   return (
     <View style={styles.container}>
@@ -48,8 +57,8 @@ export default function ExamScreen() {
             <Ionicons name="close" size={ms(24)} color="#fff" />
           </TouchableOpacity>
           <View style={styles.headerTexts}>
-            <Text style={styles.headerSubtitle}>DEVICE INTRODUCTION & CORE CONCEPTS</Text>
-            <Text style={styles.headerTitle}>Question 3 of 10</Text>
+            <Text style={styles.headerSubtitle}>{t('levels.title_f1').toUpperCase()}</Text>
+            <Text style={styles.headerTitle}>{t('exam.question_count', { current: 3, total: 10 })}</Text>
           </View>
           <View style={{ width: wp(40) }} />
         </View>
@@ -69,11 +78,11 @@ export default function ExamScreen() {
          <View style={styles.contentWrap}>
             <View style={styles.badge}>
                <Ionicons name="information-circle" size={ms(16)} color="#3069F7" />
-               <Text style={styles.badgeText}>LEVEL EXAM</Text>
+               <Text style={styles.badgeText}>{t('exam.level_exam')}</Text>
             </View>
 
             <Text style={styles.questionText}>
-              A 54-year-old patient presents with acute chest pain. The ECG shows ST-segment elevation in leads V1-V4. Which coronary artery is most likely occluded?
+              {t('exam.example_q')}
             </Text>
 
             <View style={styles.optionsList}>
@@ -88,30 +97,30 @@ export default function ExamScreen() {
             </View>
 
             <View style={styles.noteBox}>
-               <Text style={styles.noteBold}><Ionicons name="book" size={ms(14)} color="#17B8A6"/> Important Note</Text>
-               <Text style={styles.noteLine}>👉 Firstly, You Need To Complete The Quick Assessments For Each Topic. These Are Designed To Help You Understand The Content Step By Step. 📝✨</Text>
-               <Text style={styles.noteLine}>👉 Once You Finish All The Topics In A Level, You Will Need To Take A Final Exam. 🎯</Text>
-               <Text style={styles.noteLine}>🏆 After Successfully Passing The Final Exam, You Will Earn Your Certificate. 🎓</Text>
-               <Text style={styles.noteLine}>💡 Stay Consistent, Complete Each Step, And You'll Achieve Your Goal Smoothly! 🚀</Text>
+               <Text style={styles.noteBold}><Ionicons name="book" size={ms(14)} color="#17B8A6"/> {t('exam.important_note')}</Text>
+               <Text style={styles.noteLine}>👉 {t('exam.note_assessment')} 📝✨</Text>
+               <Text style={styles.noteLine}>👉 {t('exam.note_final')} 🎯</Text>
+               <Text style={styles.noteLine}>🏆 {t('exam.note_cert')} 🎓</Text>
+               <Text style={styles.noteLine}>💡 {t('exam.note_consistent')} 🚀</Text>
             </View>
 
             <TouchableOpacity style={styles.submitButton} onPress={() => router.push('/(tabs)/quiz-result')}>
-               <Text style={styles.submitButtonText}>Submit</Text>
+               <Text style={styles.submitButtonText}>{t('exam.submit')}</Text>
             </TouchableOpacity>
 
             <View style={styles.navRow}>
                <TouchableOpacity style={styles.navBtn}>
                   <Ionicons name="play-skip-back" size={ms(20)} color="#333" />
-                  <Text style={styles.navBtnText}>Previous</Text>
+                  <Text style={styles.navBtnText}>{t('exam.previous')}</Text>
                </TouchableOpacity>
 
                <TouchableOpacity style={styles.skipBtn}>
-                  <Text style={styles.skipBtnText}>Skip</Text>
+                  <Text style={styles.skipBtnText}>{t('exam.skip')}</Text>
                   <Ionicons name="play-forward" size={ms(14)} color="#fff" style={{marginLeft: wp(4), marginTop: 2}} />
                </TouchableOpacity>
 
                <TouchableOpacity style={styles.navBtn}>
-                  <Text style={styles.navBtnText}>Next</Text>
+                  <Text style={styles.navBtnText}>{t('exam.next')}</Text>
                   <Ionicons name="play-skip-forward" size={ms(20)} color="#333" />
                </TouchableOpacity>
             </View>
