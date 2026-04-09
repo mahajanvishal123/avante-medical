@@ -6,14 +6,13 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Dimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-
-const { width } = Dimensions.get('window');
+import { wp, hp, ms, fs } from '../../utils/responsive';
+import { AppColors } from '../../constants/Theme';
 
 export default function TopicDetailsScreen() {
   const insets = useSafeAreaInsets();
@@ -23,17 +22,17 @@ export default function TopicDetailsScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={() => router.push('/(tabs)/chapter-details')} style={styles.headerIcon}>
-            <Ionicons name="arrow-back" size={24} color="#fff" />
+            <Ionicons name="arrow-back" size={ms(24)} color="#fff" />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
              <Text style={styles.headerSubtitle}>TOPIC: HEART CHAMBERS</Text>
              <Text style={styles.headerTitle}>{t('chapters.topics_details')}</Text>
           </View>
           <TouchableOpacity style={styles.headerIcon}>
-            <Ionicons name="search" size={24} color="#fff" />
+            <Ionicons name="search" size={ms(24)} color="#fff" />
           </TouchableOpacity>
         </View>
       </View>
@@ -41,7 +40,7 @@ export default function TopicDetailsScreen() {
       <ScrollView 
         style={styles.content} 
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: hp(120) }}
       >
         <View style={styles.textContent}>
            <Text style={styles.mainTitle}>{t('chapters.t1_title')}</Text>
@@ -52,23 +51,23 @@ export default function TopicDetailsScreen() {
 
         {/* Content Image */}
         <View style={styles.imageCard}>
-           <Image 
-             source={require('../../assets/level2_heart.png')} 
-             style={styles.contentImage}
-             resizeMode="cover"
-           />
+            <Image 
+              source={require('../../assets/topic-detaisl-1.jpg')} 
+              style={styles.contentImage}
+              resizeMode="cover"
+            />
         </View>
 
         {/* Video Player Section */}
         <View style={styles.videoPlayer}>
-           <Image 
-             source={require('../../assets/brain_scan.png')} 
-             style={styles.videoThumbnail}
-             resizeMode="cover"
-           />
+            <Image 
+              source={require('../../assets/topic-details-2.png')} 
+              style={styles.videoThumbnail}
+              resizeMode="cover"
+            />
            <View style={styles.videoOverlay}>
               <TouchableOpacity style={styles.playButton}>
-                 <Ionicons name="play" size={40} color="#fff" />
+                 <Ionicons name="play" size={ms(40)} color="#fff" />
               </TouchableOpacity>
               <View style={styles.videoControls}>
                  <View style={styles.timeRow}>
@@ -92,30 +91,28 @@ export default function TopicDetailsScreen() {
         </View>
 
         {/* Action Button */}
-        <TouchableOpacity style={styles.quizButton}>
+        <TouchableOpacity style={styles.quizButton} onPress={() => router.push('/(tabs)/exam')}>
            <Text style={styles.quizButtonText}>{t('chapters.attempt_quiz')}</Text>
         </TouchableOpacity>
 
         {/* Navigation Controls */}
         <View style={styles.navRow}>
            <TouchableOpacity style={styles.navButton}>
-              <Ionicons name="play-back" size={20} color="#333" />
+              <Ionicons name="play-back" size={ms(20)} color="#333" />
               <Text style={styles.navButtonText}>{t('chapters.previous')}</Text>
            </TouchableOpacity>
 
            <TouchableOpacity style={styles.allTopicsButton}>
               <Text style={styles.allTopicsText}>{t('chapters.all_topics_btn')}</Text>
-              <Ionicons name="list" size={20} color="#fff" />
+              <Ionicons name="list" size={ms(20)} color="#fff" />
            </TouchableOpacity>
 
            <TouchableOpacity style={styles.navButton}>
               <Text style={styles.navButtonText}>{t('chapters.next')}</Text>
-              <Ionicons name="play-forward" size={20} color="#333" />
+              <Ionicons name="play-forward" size={ms(20)} color="#333" />
            </TouchableOpacity>
         </View>
       </ScrollView>
-
-      {/* Footer is handled by TabLayout */}
     </View>
   );
 }
@@ -126,18 +123,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    backgroundColor: '#24458B',
-    paddingBottom: 20,
+    backgroundColor: AppColors.primaryDark,
+    paddingBottom: hp(20),
   },
   headerContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: wp(20),
   },
   headerIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: wp(40),
+    height: wp(40),
+    borderRadius: wp(20),
     backgroundColor: 'rgba(255,255,255,0.1)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -147,42 +144,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerSubtitle: {
-    fontSize: 10,
+    fontSize: fs(10),
     color: 'rgba(255,255,255,0.7)',
     fontWeight: '700',
     letterSpacing: 0.5,
-    marginBottom: 2,
+    marginBottom: hp(2),
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: fs(20),
     fontWeight: '700',
-    color: '#fff',
+    color: AppColors.textWhite,
   },
   content: {
     flex: 1,
-    padding: 20,
+    padding: wp(20),
   },
   textContent: {
-    marginBottom: 25,
+    marginBottom: hp(25),
   },
   mainTitle: {
-    fontSize: 28,
+    fontSize: fs(26),
     fontWeight: '900',
-    color: '#1A1A1A',
-    marginBottom: 15,
+    color: AppColors.textDark,
+    marginBottom: hp(15),
   },
   description: {
-    fontSize: 16,
-    color: '#666',
-    lineHeight: 24,
+    fontSize: fs(15),
+    color: AppColors.textSecondary,
+    lineHeight: fs(24),
     opacity: 0.8,
   },
   imageCard: {
     width: '100%',
-    height: 200,
-    borderRadius: 20,
+    height: hp(200),
+    borderRadius: ms(20),
     overflow: 'hidden',
-    marginBottom: 25,
+    marginBottom: hp(25),
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -195,11 +192,11 @@ const styles = StyleSheet.create({
   },
   videoPlayer: {
     width: '100%',
-    height: 220,
-    borderRadius: 20,
+    height: hp(220),
+    borderRadius: ms(20),
     overflow: 'hidden',
     backgroundColor: '#000',
-    marginBottom: 25,
+    marginBottom: hp(25),
   },
   videoThumbnail: {
     width: '100%',
@@ -213,120 +210,121 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   playButton: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#FF6B00',
+    width: wp(80),
+    height: wp(80),
+    borderRadius: wp(40),
+    backgroundColor: AppColors.warning,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 8,
   },
   videoControls: {
     position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
+    bottom: hp(20),
+    left: wp(20),
+    right: wp(20),
   },
   timeRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: hp(10),
   },
   timeText: {
-    color: '#fff',
-    fontSize: 12,
+    color: AppColors.textWhite,
+    fontSize: fs(12),
     fontWeight: '700',
   },
   videoTrack: {
-    height: 4,
+    height: hp(4),
     backgroundColor: 'rgba(255,255,255,0.3)',
-    borderRadius: 2,
+    borderRadius: ms(2),
     flexDirection: 'row',
     alignItems: 'center',
   },
   videoProgress: {
     width: '40%',
     height: '100%',
-    backgroundColor: '#FF6B00',
-    borderRadius: 2,
+    backgroundColor: AppColors.warning,
+    borderRadius: ms(2),
   },
   progressKnob: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+    width: wp(12),
+    height: wp(12),
+    borderRadius: wp(6),
     backgroundColor: '#fff',
     borderWidth: 2,
-    borderColor: '#FF6B00',
+    borderColor: AppColors.warning,
     marginLeft: -2,
   },
   metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 30,
-    gap: 10,
+    marginBottom: hp(30),
+    gap: wp(10),
   },
   unitBadge: {
     backgroundColor: '#FFF0E6',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
+    paddingHorizontal: wp(12),
+    paddingVertical: hp(6),
+    borderRadius: ms(8),
     borderWidth: 1,
     borderColor: '#FFDAB9',
   },
   unitBadgeText: {
-    color: '#FF6B00',
-    fontSize: 11,
+    color: AppColors.warning,
+    fontSize: fs(11),
     fontWeight: '800',
   },
   metaText: {
-    fontSize: 13,
-    color: '#999',
+    fontSize: fs(13),
+    color: AppColors.placeholder,
     fontWeight: '600',
+    flex: 1,
   },
   quizButton: {
-    height: 60,
-    borderRadius: 15,
+    height: hp(60),
+    borderRadius: ms(15),
     borderWidth: 1.5,
     borderColor: '#24458B',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 30,
+    marginBottom: hp(30),
   },
   quizButtonText: {
-    color: '#24458B',
-    fontSize: 18,
+    color: AppColors.primaryDark,
+    fontSize: fs(18),
     fontWeight: '800',
   },
   navRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 20,
+    paddingTop: hp(20),
     borderTopWidth: 1,
     borderTopColor: '#F0F0F0',
   },
   navButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: wp(5),
   },
   navButtonText: {
-    fontSize: 16,
+    fontSize: fs(15),
     fontWeight: '700',
-    color: '#333',
+    color: AppColors.textDark,
   },
   allTopicsButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#3069F7',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 12,
-    gap: 8,
+    backgroundColor: AppColors.primary,
+    paddingHorizontal: wp(20),
+    paddingVertical: hp(12),
+    borderRadius: ms(12),
+    gap: wp(8),
   },
   allTopicsText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: fs(14),
     fontWeight: '800',
   },
 });

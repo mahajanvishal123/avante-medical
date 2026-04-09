@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Colors } from '../../constants/Theme';
+import { AppColors } from '../../constants/Theme';
 
 export default function TabLayout() {
   const { t } = useTranslation();
@@ -11,15 +11,15 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.text.light,
+        tabBarActiveTintColor: AppColors.primary,
+        tabBarInactiveTintColor: AppColors.placeholder,
         tabBarStyle: {
           height: 70,
           paddingBottom: 15,
           paddingTop: 10,
-          backgroundColor: Colors.background,
+          backgroundColor: AppColors.backgroundWhite,
           borderTopWidth: 1,
-          borderTopColor: Colors.border,
+          borderTopColor: AppColors.border,
         },
         tabBarLabelStyle: {
           fontSize: 12,
@@ -83,6 +83,48 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="topic-details"
+        options={{
+          href: null, // Hide from tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="subtopic-list"
+        options={{
+          href: null, // Hide from tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="exam"
+        options={{
+          href: null, // Hide from tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="quiz-result"
+        options={{
+          href: null, // Hide from tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="certificate"
+        options={{
+          href: null, // Hide from tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="level-result"
+        options={{
+          href: null, // Hide from tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="edit-profile"
+        options={{
+          href: null, // Hide from tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="change-password"
         options={{
           href: null, // Hide from tab bar
         }}

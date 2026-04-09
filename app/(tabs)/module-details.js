@@ -6,14 +6,13 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  Dimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-
-const { width } = Dimensions.get('window');
+import { wp, hp, ms, fs } from '../../utils/responsive';
+import { AppColors } from '../../constants/Theme';
 
 const ChapterItem = ({ number, title, status, current = false }) => {
   const router = useRouter();
@@ -27,14 +26,14 @@ const ChapterItem = ({ number, title, status, current = false }) => {
     >
       <View style={[styles.chapterIconContainer, status === 'Completed' && styles.chapterIconCompleted]}>
          {status === 'Completed' ? (
-           <Ionicons name="checkmark-circle" size={32} color="#17B8A6" />
+           <Ionicons name="checkmark-circle" size={ms(32)} color="#17B8A6" />
          ) : (
-           <Ionicons name="play-circle" size={32} color="#24458B" />
+           <Ionicons name="play-circle" size={ms(32)} color="#24458B" />
          )}
       </View>
       <View style={styles.chapterDetails}>
         <Text style={styles.chapterMeta}>{t('modules.chapter_number', { number })} {current && t('modules.current')}</Text>
-        <Text style={styles.chapterTitle}>{title}</Text>
+        <Text style={styles.chapterTitle} numberOfLines={2}>{title}</Text>
       </View>
       {status === 'Completed' ? (
         <View style={styles.completedBadge}>
@@ -57,14 +56,14 @@ export default function ModuleDetailsScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={() => router.push('/(tabs)/level-details')} style={styles.headerIcon}>
-            <Ionicons name="arrow-back" size={24} color="#fff" />
+            <Ionicons name="arrow-back" size={ms(24)} color="#fff" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('modules.details_title')}</Text>
           <TouchableOpacity style={styles.headerIcon}>
-            <Ionicons name="search" size={24} color="#fff" />
+            <Ionicons name="search" size={ms(24)} color="#fff" />
           </TouchableOpacity>
         </View>
       </View>
@@ -72,11 +71,11 @@ export default function ModuleDetailsScreen() {
       <ScrollView 
         style={styles.content} 
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: hp(120) }}
       >
         {/* Banner Section */}
         <ImageBackground 
-          source={require('../../assets/level1_heart.png')} 
+          source={require('../../assets/level-detail-1.png')} 
           style={styles.banner}
           resizeMode="cover"
         >
@@ -131,7 +130,7 @@ export default function ModuleDetailsScreen() {
       </ScrollView>
 
       {/* Floating Bottom Button */}
-      <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, 15) }]}>
+      <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, hp(15)) }]}>
           <TouchableOpacity style={styles.continueButton}>
              <Text style={styles.continueButtonText}>{t('levels.continue_learning')}</Text>
           </TouchableOpacity>
@@ -143,57 +142,57 @@ export default function ModuleDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: AppColors.backgroundWhite,
   },
   header: {
-    backgroundColor: '#24458B',
-    paddingBottom: 15,
+    backgroundColor: AppColors.primaryDark,
+    paddingBottom: hp(15),
   },
   headerContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: wp(20),
     justifyContent: 'space-between',
   },
   headerIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: wp(40),
+    height: wp(40),
+    borderRadius: wp(20),
     backgroundColor: 'rgba(255,255,255,0.1)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: fs(20),
     fontWeight: '700',
-    color: '#fff',
+    color: AppColors.textWhite,
   },
   content: {
     flex: 1,
   },
   banner: {
     width: '100%',
-    height: 220,
+    height: hp(220),
     justifyContent: 'flex-end',
   },
   bannerOverlay: {
     backgroundColor: 'rgba(36, 69, 139, 0.7)',
-    padding: 20,
+    padding: wp(20),
   },
   bannerSubtitle: {
-    color: '#FFD700',
-    fontSize: 14,
+    color: AppColors.gold,
+    fontSize: fs(14),
     fontWeight: '700',
-    marginBottom: 5,
+    marginBottom: hp(5),
   },
   bannerTitle: {
-    color: '#fff',
-    fontSize: 22,
+    color: AppColors.textWhite,
+    fontSize: fs(22),
     fontWeight: '800',
-    lineHeight: 30,
+    lineHeight: fs(30),
   },
   statsSection: {
-    padding: 20,
+    padding: wp(20),
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
   },
@@ -201,67 +200,68 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginBottom: 15,
+    marginBottom: hp(15),
   },
   statsLabel: {
-    fontSize: 12,
+    fontSize: fs(12),
     fontWeight: '700',
-    color: '#999',
+    color: AppColors.placeholder,
     letterSpacing: 1,
-    marginBottom: 5,
+    marginBottom: hp(5),
   },
   statsPercentage: {
-    fontSize: 28,
+    fontSize: fs(28),
     fontWeight: '800',
-    color: '#24458B',
+    color: AppColors.primaryDark,
   },
   statsCount: {
-    fontSize: 14,
+    fontSize: fs(14),
     fontWeight: '600',
-    color: '#666',
-    marginBottom: 5,
+    color: AppColors.textSecondary,
+    marginBottom: hp(5),
   },
   progressBarTrack: {
-    height: 10,
-    backgroundColor: '#F0F2F5',
-    borderRadius: 5,
+    height: hp(10),
+    backgroundColor: AppColors.backgroundLight,
+    borderRadius: ms(5),
   },
   progressBar: {
     height: '100%',
-    backgroundColor: '#24458B',
-    borderRadius: 5,
+    backgroundColor: AppColors.primaryDark,
+    borderRadius: ms(5),
   },
   section: {
-    padding: 20,
+    padding: wp(20),
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: fs(18),
     fontWeight: '800',
-    color: '#333',
-    marginBottom: 15,
+    color: AppColors.textDark,
+    marginBottom: hp(15),
   },
   sectionText: {
-    fontSize: 15,
-    color: '#666',
-    lineHeight: 24,
+    fontSize: fs(15),
+    color: AppColors.textSecondary,
+    lineHeight: fs(24),
   },
   readMore: {
-    color: '#24458B',
+    color: AppColors.primaryDark,
     fontWeight: '700',
-    marginTop: 5,
+    marginTop: hp(5),
+    fontSize: fs(14),
   },
   chapterCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
-    borderRadius: 16,
-    backgroundColor: '#fff',
+    padding: wp(15),
+    borderRadius: ms(16),
+    backgroundColor: AppColors.backgroundWhite,
     borderWidth: 1,
     borderColor: '#f0f0f0',
-    marginBottom: 15,
+    marginBottom: hp(15),
   },
   chapterCardCurrent: {
-    borderColor: '#24458B',
+    borderColor: AppColors.primaryDark,
     borderWidth: 2,
     elevation: 4,
     shadowColor: '#24458B',
@@ -270,43 +270,43 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
   },
   chapterIconContainer: {
-    marginRight: 15,
+    marginRight: wp(15),
   },
   chapterDetails: {
     flex: 1,
   },
   chapterMeta: {
-    fontSize: 12,
+    fontSize: fs(12),
     fontWeight: '600',
     color: '#24458B',
-    marginBottom: 4,
+    marginBottom: hp(4),
   },
   chapterTitle: {
-    fontSize: 15,
+    fontSize: fs(15),
     fontWeight: '700',
     color: '#333',
-    lineHeight: 20,
+    lineHeight: fs(20),
   },
   completedBadge: {
-    backgroundColor: '#E6F9F4',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 8,
+    backgroundColor: AppColors.badgeTealBg,
+    paddingHorizontal: wp(10),
+    paddingVertical: hp(5),
+    borderRadius: ms(8),
   },
   completedBadgeText: {
-    color: '#17B8A6',
-    fontSize: 12,
+    color: AppColors.teal,
+    fontSize: fs(12),
     fontWeight: '700',
   },
   resumeButtonMini: {
     backgroundColor: '#24458B',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingHorizontal: wp(15),
+    paddingVertical: hp(10),
+    borderRadius: ms(10),
   },
   resumeButtonTextMini: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: fs(12),
     fontWeight: '800',
   },
   footer: {
@@ -314,21 +314,21 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingTop: 15,
+    paddingHorizontal: wp(20),
+    paddingTop: hp(15),
     borderTopWidth: 1,
     borderTopColor: '#f0f0f0',
   },
   continueButton: {
-    height: 55,
-    backgroundColor: '#17B8A6',
-    borderRadius: 12,
+    height: hp(55),
+    backgroundColor: AppColors.teal,
+    borderRadius: ms(12),
     alignItems: 'center',
     justifyContent: 'center',
   },
   continueButtonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: fs(18),
     fontWeight: '700',
   },
 });

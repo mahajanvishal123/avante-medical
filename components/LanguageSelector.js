@@ -36,7 +36,7 @@ export default function LanguageSelector({ variant = 'outline', textColor }) {
 
   return (
     <View>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[
           styles.trigger,
           variant === 'ghost' && styles.triggerGhost,
@@ -56,7 +56,7 @@ export default function LanguageSelector({ variant = 'outline', textColor }) {
         animationType="slide"
         onRequestClose={() => setIsVisible(false)}
       >
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.modalOverlay}
           activeOpacity={1}
           onPress={() => setIsVisible(false)}
@@ -66,13 +66,13 @@ export default function LanguageSelector({ variant = 'outline', textColor }) {
               <View style={styles.modalIndicator} />
               <Text style={styles.modalTitle}>{t('common.select_language')}</Text>
             </View>
-            
+
             <FlatList
               data={LANGUAGES}
               keyExtractor={(item) => item.code}
               contentContainerStyle={styles.listContainer}
               renderItem={({ item }) => (
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={[
                     styles.langItem,
                     i18n.language === item.code && styles.langItemActive
