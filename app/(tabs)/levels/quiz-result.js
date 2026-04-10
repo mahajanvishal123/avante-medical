@@ -11,8 +11,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs, SCREEN_WIDTH } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs, SCREEN_WIDTH } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const ConfettiBackground = () => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
@@ -98,7 +98,7 @@ export default function QuizResultScreen() {
            <Text style={styles.fullStatValue}>2</Text>
         </View>
 
-        <TouchableOpacity style={styles.certButton} onPress={() => router.push('/(tabs)/certificate')}>
+        <TouchableOpacity style={styles.certButton} onPress={() => router.push('/(tabs)/analytics/certificate')}>
            <Text style={styles.certButtonText}>{t('exam.earn_cert')}</Text>
         </TouchableOpacity>
 
@@ -113,10 +113,12 @@ export default function QuizResultScreen() {
            </TouchableOpacity>
         </View>
 
-        <View style={styles.footerContainer}>
-           <Text style={styles.footerText}>Quiz ID: #CAR-1092-24 • Completed on Oct 24, 2023</Text>
-        </View>
+
       </ScrollView>
+
+      <View style={styles.fixedFooter}>
+        <Text style={styles.footerText}>Quiz ID: #CAR-1092-24 • Completed on Oct 24, 2023</Text>
+      </View>
     </View>
   );
 }
@@ -325,9 +327,12 @@ const styles = StyleSheet.create({
     color: '#333',
     marginLeft: wp(8),
   },
-  footerContainer: {
-    marginTop: hp(20),
+  fixedFooter: {
+    paddingVertical: hp(15),
     alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: '#F0F0F0',
+    backgroundColor: '#fff',
   },
   footerText: {
     fontSize: fs(11),

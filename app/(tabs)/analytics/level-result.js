@@ -10,8 +10,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs, isSmallDevice } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs, isSmallDevice } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 export default function LevelResultScreen() {
   const insets = useSafeAreaInsets();
@@ -115,7 +115,7 @@ export default function LevelResultScreen() {
         <View style={styles.actionsContainer}>
           <TouchableOpacity
             style={styles.saveCertBtn}
-            onPress={() => router.push('/(tabs)/certificate')}
+            onPress={() => router.push('/(tabs)/analytics/certificate')}
           >
             <Text style={styles.saveCertBtnText}>{t('common.save_cert')}</Text>
           </TouchableOpacity>

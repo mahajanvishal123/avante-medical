@@ -13,9 +13,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import i18n from '../../../i18n';
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const LANGUAGES = [
   { code: 'en', label: 'English', nativeLabel: 'EN' },
@@ -92,11 +92,8 @@ export default function HomeScreen() {
       </Modal>
 
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + hp(15) }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(8) }]}>
         <View style={styles.headerContent}>
-          <TouchableOpacity style={styles.headerBackBtn}>
-            <Ionicons name="arrow-back" size={ms(24)} color="#fff" />
-          </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('home.title')}</Text>
           <View style={styles.headerRight}>
             <TouchableOpacity style={styles.languageSelector} onPress={() => setShowLanguageModal(true)}>

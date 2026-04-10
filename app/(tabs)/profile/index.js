@@ -6,13 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  BackHandler,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useRouter, useNavigation } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const MenuItem = ({ icon, label, onPress, isLogout = false }) => (
   <TouchableOpacity style={styles.menuItem} onPress={onPress} activeOpacity={0.7}>
@@ -29,11 +30,40 @@ const MenuItem = ({ icon, label, onPress, isLogout = false }) => (
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const navigation = useNavigation();
   const { t } = useTranslation();
+
+  React.useEffect(() => {
+    let backHandlerSubscription = null;
+
+    const onBackPress = () => {
+      // Prevent navigating back to Home tab
+      return true;
+    };
+
+    const unsubscribeFocus = navigation.addListener('focus', () => {
+      backHandlerSubscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    });
+
+    const unsubscribeBlur = navigation.addListener('blur', () => {
+      if (backHandlerSubscription) {
+        backHandlerSubscription.remove();
+        backHandlerSubscription = null;
+      }
+    });
+
+    return () => {
+      unsubscribeFocus();
+      unsubscribeBlur();
+      if (backHandlerSubscription) {
+        backHandlerSubscription.remove();
+      }
+    };
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(2) }]}>
         <Text style={styles.headerTitle}>{t('profile.title')}</Text>
       </View>
 
@@ -54,8 +84,8 @@ export default function ProfileScreen() {
         </View>
         <View style={styles.divider} />
         <View style={styles.menuSection}>
-          <MenuItem icon="create-outline" label={t('profile.edit_profile')} onPress={() => router.push('/(tabs)/edit-profile')} />
-          <MenuItem icon="lock-closed-outline" label={t('profile.change_password')} onPress={() => router.push('/(tabs)/change-password')} />
+          <MenuItem icon="create-outline" label={t('profile.edit_profile')} onPress={() => router.push('/(tabs)/profile/edit-profile')} />
+          <MenuItem icon="lock-closed-outline" label={t('profile.change_password')} onPress={() => router.push('/(tabs)/profile/change-password')} />
           <MenuItem icon="notifications-outline" label={t('profile.notifications')} onPress={() => {}} />
           <MenuItem icon="log-out-outline" label={t('profile.logout')} isLogout={true} onPress={() => router.replace('/(auth)/login')} />
         </View>

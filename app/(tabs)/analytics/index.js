@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  BackHandler,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useRouter, useNavigation } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs, SCREEN_WIDTH, isSmallDevice } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs, SCREEN_WIDTH, isSmallDevice } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const PROGRESS_DATA = {
   current: [
@@ -52,15 +53,44 @@ const PROGRESS_DATA = {
 export default function AnalyticsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const navigation = useNavigation();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('current'); // 'current' or 'past'
+
+  useEffect(() => {
+    let backHandlerSubscription = null;
+
+    const onBackPress = () => {
+      // Prevent navigating back to Home tab - stay in flow
+      return true;
+    };
+
+    const unsubscribeFocus = navigation.addListener('focus', () => {
+      backHandlerSubscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    });
+
+    const unsubscribeBlur = navigation.addListener('blur', () => {
+      if (backHandlerSubscription) {
+        backHandlerSubscription.remove();
+        backHandlerSubscription = null;
+      }
+    });
+
+    return () => {
+      unsubscribeFocus();
+      unsubscribeBlur();
+      if (backHandlerSubscription) {
+        backHandlerSubscription.remove();
+      }
+    };
+  }, [navigation]);
 
   const progressItems = activeTab === 'current' ? PROGRESS_DATA.current : PROGRESS_DATA.past;
 
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
         {/* Top green accent bar */}
         <View style={styles.greenAccentBar} />
         <View style={styles.headerContent}>
@@ -215,7 +245,7 @@ export default function AnalyticsScreen() {
               {item.hasCertificate ? (
                 <TouchableOpacity 
                   style={styles.actionBtn} 
-                  onPress={() => router.push('/(tabs)/level-result')}
+                  onPress={() => router.push('/(tabs)/analytics/level-result')}
                 >
                   <Text style={styles.actionBtnText}>{t('analytics.view_certificate')}</Text>
                 </TouchableOpacity>

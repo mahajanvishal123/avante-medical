@@ -11,8 +11,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const ModuleItem = ({ number, title, status, current = false }) => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const ModuleItem = ({ number, title, status, current = false }) => {
   return (
     <TouchableOpacity 
       style={[styles.moduleCard, current && styles.moduleCardCurrent]}
-      onPress={() => current && router.push('/(tabs)/module-details')}
+      onPress={() => current && router.push('/(tabs)/levels/module-details')}
       activeOpacity={0.9}
     >
       <View style={[styles.moduleIconContainer, status === 'Completed' && styles.moduleIconCompleted]}>
@@ -56,7 +56,7 @@ export default function LevelDetailsScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
             <Ionicons name="arrow-back" size={ms(24)} color="#fff" />
@@ -75,7 +75,7 @@ export default function LevelDetailsScreen() {
       >
         {/* Banner Section */}
         <ImageBackground 
-          source={require('../../assets/level-detail-1.png')} 
+          source={require('../../../assets/level-detail-1.png')} 
           style={styles.banner}
           resizeMode="cover"
         >

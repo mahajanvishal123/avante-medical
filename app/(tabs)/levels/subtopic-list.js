@@ -11,8 +11,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const TopicCard = ({
   image,
@@ -105,7 +105,7 @@ export default function SubtopicListScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
             <Ionicons name="chevron-back" size={ms(24)} color="#fff" />
@@ -133,25 +133,25 @@ export default function SubtopicListScreen() {
         </View>
 
         <TopicCard
-          image={require('../../assets/subtitle-1.png')}
+          image={require('../../../assets/subtitle-1.png')}
           title={t('chapters.t1_title')}
           units={6}
           progress={100}
           status="Completed"
-          onPress={() => router.push('/(tabs)/topic-details')}
+          onPress={() => router.push('/(tabs)/levels/topic-details')}
         />
 
         <TopicCard
-          image={require('../../assets/subtitle-2.png')}
+          image={require('../../../assets/subtitle-2.png')}
           title={t('chapters.t2_title')}
           units={4}
           progress={50}
           status="Running"
-          onPress={() => router.push('/(tabs)/topic-details')}
+          onPress={() => router.push('/(tabs)/levels/topic-details')}
         />
 
         <TopicCard
-          image={require('../../assets/my-level-3.png')}
+          image={require('../../../assets/my-level-3.png')}
           title={t('chapters.p_ecg_trace')}
           units={8}
           progress={0}
@@ -161,7 +161,7 @@ export default function SubtopicListScreen() {
         />
 
         <TopicCard
-          image={require('../../assets/level-detail-1.png')}
+          image={require('../../../assets/level-detail-1.png')}
           title={t('chapters.p_ecg_trace')}
           units={8}
           progress={0}
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: '100%',
-    borderRadius: ms(4),
+    borderRadius: ms(4)
   },
   resumeButton: {
     height: hp(55),

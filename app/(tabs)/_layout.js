@@ -10,16 +10,10 @@ export default function TabLayout() {
 
   // Helper to determine if a tab should be highlighted
   const isTabActive = (tabName) => {
-    if (tabName === 'home') return pathname === '/home' || pathname === '/';
-    if (tabName === 'levels') {
-      return ['/levels', '/level-details', '/module-details', '/chapter-details', '/topic-details', '/subtopic-list', '/exam', '/quiz-result'].includes(pathname);
-    }
-    if (tabName === 'analytics') {
-      return ['/analytics', '/level-result', '/certificate'].includes(pathname);
-    }
-    if (tabName === 'profile') {
-      return ['/profile', '/edit-profile', '/change-password'].includes(pathname);
-    }
+    if (tabName === 'home') return pathname === '/home' || pathname === '/index' || pathname === '/';
+    if (tabName === 'levels') return pathname.startsWith('/levels');
+    if (tabName === 'analytics') return pathname.startsWith('/analytics');
+    if (tabName === 'profile') return pathname.startsWith('/profile');
     return false;
   };
 
@@ -44,7 +38,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="home/index"
         options={{
           title: t('tabs.home'),
           tabBarIcon: ({ color, size }) => (
@@ -97,72 +91,6 @@ export default function TabLayout() {
             fontSize: 12,
             fontWeight: '500',
           }
-        }}
-      />
-      <Tabs.Screen
-        name="level-details"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="module-details"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="chapter-details"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="topic-details"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="subtopic-list"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="exam"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="quiz-result"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="certificate"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="level-result"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="edit-profile"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="change-password"
-        options={{
-          href: null, // Hide from tab bar
         }}
       />
     </Tabs>

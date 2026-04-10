@@ -21,7 +21,8 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "package": "com.mr.vishal_m.avanatemedical"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,6 +38,12 @@
     },
     "runtimeVersion": {
       "policy": "appVersion"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d31944b0-bd45-4f08-925e-89779f066540"
+      }
     }
   }
 }

@@ -11,8 +11,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const ChapterItem = ({ number, title, status, current = false }) => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const ChapterItem = ({ number, title, status, current = false }) => {
   return (
     <TouchableOpacity 
       style={[styles.chapterCard, current && styles.chapterCardCurrent]}
-      onPress={() => current && router.push('/(tabs)/chapter-details')}
+      onPress={() => current && router.push('/(tabs)/levels/chapter-details')}
       activeOpacity={0.9}
     >
       <View style={[styles.chapterIconContainer, status === 'Completed' && styles.chapterIconCompleted]}>
@@ -75,7 +75,7 @@ export default function ModuleDetailsScreen() {
       >
         {/* Banner Section */}
         <ImageBackground 
-          source={require('../../assets/level-detail-1.png')} 
+          source={require('../../../assets/level-detail-1.png')} 
           style={styles.banner}
           resizeMode="cover"
         >

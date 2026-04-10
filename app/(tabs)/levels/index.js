@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  BackHandler,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useRouter, useNavigation } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const LevelCard = ({ 
   image, title, stats, progress, status, buttonText, 
@@ -24,7 +25,7 @@ const LevelCard = ({
   return (
     <TouchableOpacity 
       style={styles.card} 
-      onPress={() => !locked && router.push('/(tabs)/level-details')}
+      onPress={() => !locked && router.push('/(tabs)/levels/details')}
       activeOpacity={0.9}
     >
       <View style={styles.imageContainer}>
@@ -69,12 +70,41 @@ const LevelCard = ({
 export default function LevelsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const navigation = useNavigation();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('All');
 
+  useEffect(() => {
+    let backHandlerSubscription = null;
+
+    const onBackPress = () => {
+      // Prevent navigating back to Home tab - stay in flow
+      return true;
+    };
+
+    const unsubscribeFocus = navigation.addListener('focus', () => {
+      backHandlerSubscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    });
+
+    const unsubscribeBlur = navigation.addListener('blur', () => {
+      if (backHandlerSubscription) {
+        backHandlerSubscription.remove();
+        backHandlerSubscription = null;
+      }
+    });
+
+    return () => {
+      unsubscribeFocus();
+      unsubscribeBlur();
+      if (backHandlerSubscription) {
+        backHandlerSubscription.remove();
+      }
+    };
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
-      <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
             <Ionicons name="arrow-back" size={ms(24)} color={AppColors.textWhite} />
@@ -96,10 +126,10 @@ export default function LevelsScreen() {
       </View>
 
       <ScrollView contentContainerStyle={[styles.scrollContent, { paddingBottom: hp(100) }]} showsVerticalScrollIndicator={false}>
-        <LevelCard image={require('../../assets/my-level-1.png')} title={t('levels.title_f1')} stats={t('levels.stats_format', { hours: 4.5, modules: 2 })} progress={100} status="Completed" badgeText={t('levels.completed').toUpperCase()} buttonText={t('levels.take_exam')} buttonVariant="primary" />
-        <LevelCard image={require('../../assets/my-level-2.png')} title={t('levels.title_f2')} stats={t('levels.stats_format', { hours: 4.5, modules: 2 })} progress={60} status="Running" badgeText={t('levels.running').toUpperCase()} buttonText={t('levels.continue')} buttonVariant="secondary" />
-        <LevelCard image={require('../../assets/my-level-3.png')} title={t('levels.title_i1')} stats={t('levels.stats_format', { hours: 6.2, modules: 2 })} progress={0} status="Locked" badgeText={t('levels.locked').toUpperCase()} buttonText={t('levels.start_level')} buttonVariant="locked" locked={true} />
-        <LevelCard image={require('../../assets/my-level-3.png')} title={t('levels.title_i2')} stats={t('levels.stats_format', { hours: 6.2, modules: 2 })} progress={0} status="Locked" badgeText={t('levels.locked').toUpperCase()} buttonText={t('levels.start_level')} buttonVariant="locked" locked={true} />
+        <LevelCard image={require('../../../assets/my-level-1.png')} title={t('levels.title_f1')} stats={t('levels.stats_format', { hours: 4.5, modules: 2 })} progress={100} status="Completed" badgeText={t('levels.completed').toUpperCase()} buttonText={t('levels.take_exam')} buttonVariant="primary" />
+        <LevelCard image={require('../../../assets/my-level-2.png')} title={t('levels.title_f2')} stats={t('levels.stats_format', { hours: 4.5, modules: 2 })} progress={60} status="Running" badgeText={t('levels.running').toUpperCase()} buttonText={t('levels.continue')} buttonVariant="secondary" />
+        <LevelCard image={require('../../../assets/my-level-3.png')} title={t('levels.title_i1')} stats={t('levels.stats_format', { hours: 6.2, modules: 2 })} progress={0} status="Locked" badgeText={t('levels.locked').toUpperCase()} buttonText={t('levels.start_level')} buttonVariant="locked" locked={true} />
+        <LevelCard image={require('../../../assets/my-level-3.png')} title={t('levels.title_i2')} stats={t('levels.stats_format', { hours: 6.2, modules: 2 })} progress={0} status="Locked" badgeText={t('levels.locked').toUpperCase()} buttonText={t('levels.start_level')} buttonVariant="locked" locked={true} />
       </ScrollView>
     </View>
   );

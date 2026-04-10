@@ -10,15 +10,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
-
-const OPTIONS = [
-  { id: 'A', text: 'Right Coronary Artery (RCA)' },
-  { id: 'B', text: 'Left Anterior Descending (LAD)' },
-  { id: 'C', text: 'Left Circumflex Artery (LCx)' },
-  { id: 'D', text: 'Posterior Descending Artery (PDA)' },
-];
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const OptionItem = ({ opt, selected, onPress }) => {
   return (
@@ -104,7 +97,7 @@ export default function ExamScreen() {
                <Text style={styles.noteLine}>💡 {t('exam.note_consistent')} 🚀</Text>
             </View>
 
-            <TouchableOpacity style={styles.submitButton} onPress={() => router.push('/(tabs)/quiz-result')}>
+            <TouchableOpacity style={styles.submitButton} onPress={() => router.push('/(tabs)/levels/quiz-result')}>
                <Text style={styles.submitButtonText}>{t('exam.submit')}</Text>
             </TouchableOpacity>
 

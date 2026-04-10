@@ -11,8 +11,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 export default function TopicDetailsScreen() {
   const insets = useSafeAreaInsets();
@@ -50,7 +50,7 @@ export default function TopicDetailsScreen() {
         {/* Content Image */}
         <View style={styles.imageCard}>
             <Image 
-              source={require('../../assets/topic-detaisl-1.jpg')} 
+              source={require('../../../assets/topic-detaisl-1.jpg')} 
               style={styles.contentImage}
               resizeMode="cover"
             />
@@ -59,7 +59,7 @@ export default function TopicDetailsScreen() {
         {/* Video Player Section */}
         <View style={styles.videoPlayer}>
             <Image 
-              source={require('../../assets/topic-details-2.png')} 
+              source={require('../../../assets/topic-details-2.png')} 
               style={styles.videoThumbnail}
               resizeMode="cover"
             />
@@ -89,7 +89,7 @@ export default function TopicDetailsScreen() {
         </View>
 
         {/* Action Button */}
-        <TouchableOpacity style={styles.quizButton} onPress={() => router.push('/(tabs)/exam')}>
+        <TouchableOpacity style={styles.quizButton} onPress={() => router.push('/(tabs)/levels/exam')}>
            <Text style={styles.quizButtonText}>{t('chapters.attempt_quiz')}</Text>
         </TouchableOpacity>
 

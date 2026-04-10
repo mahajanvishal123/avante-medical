@@ -126,17 +126,19 @@ export default function LoginScreen() {
             />
           </View>
 
-          {/* Footer */}
-          <View style={styles.footer}>
-            <Text style={styles.secureText}>{t('auth.secure_login')}</Text>
-            <View style={styles.footerLinks}>
-              <TouchableOpacity><Text style={styles.footerLink}>{t('auth.terms')}</Text></TouchableOpacity>
-              <Text style={styles.footerLinkDivider}>  /  </Text>
-              <TouchableOpacity><Text style={styles.footerLink}>{t('auth.privacy')}</Text></TouchableOpacity>
-            </View>
-          </View>
+
 
         </ScrollView>
+
+        {/* Footer */}
+        <View style={styles.footer}>
+          <Text style={styles.secureText}>{t('auth.secure_login')}</Text>
+          <View style={styles.footerLinks}>
+            <TouchableOpacity><Text style={styles.footerLink}>{t('auth.terms')}</Text></TouchableOpacity>
+            <Text style={styles.footerLinkDivider}>  /  </Text>
+            <TouchableOpacity><Text style={styles.footerLink}>{t('auth.privacy')}</Text></TouchableOpacity>
+          </View>
+        </View>
       </KeyboardAvoidingView>
 
       {/* Language Modal */}
@@ -346,9 +348,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   footer: {
-    marginTop: 30,
     paddingBottom: 20,
     alignItems: 'center',
+    backgroundColor: '#fff',
   },
   secureText: {
     fontSize: 12,

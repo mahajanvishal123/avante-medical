@@ -12,8 +12,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { wp, hp, ms, fs } from '../../utils/responsive';
-import { AppColors } from '../../constants/Theme';
+import { wp, hp, ms, fs } from '../../../utils/responsive';
+import { AppColors } from '../../../constants/Theme';
 
 const TopicItem = ({ number, title, status, current = false }) => {
   const router = useRouter();
@@ -22,7 +22,7 @@ const TopicItem = ({ number, title, status, current = false }) => {
   return (
     <TouchableOpacity 
       style={[styles.topicCard, current && styles.topicCardCurrent]}
-      onPress={() => current && router.push('/(tabs)/subtopic-list')}
+      onPress={() => current && router.push('/(tabs)/levels/subtopic-list')}
       activeOpacity={0.9}
     >
       <View style={[
@@ -48,7 +48,7 @@ const TopicItem = ({ number, title, status, current = false }) => {
       ) : (current && (
         <TouchableOpacity 
           style={styles.resumeButtonMini}
-          onPress={() => router.push('/(tabs)/subtopic-list')}
+          onPress={() => router.push('/(tabs)/levels/subtopic-list')}
         >
           <Text style={styles.resumeButtonTextMini}>{t('chapters.resume')}</Text>
         </TouchableOpacity>
@@ -65,7 +65,7 @@ export default function ChapterDetailsScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + hp(10) }]}>
+      <View style={[styles.header, { paddingTop: insets.top + hp(5) }]}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={() => router.back()} style={styles.headerIcon}>
             <Ionicons name="chevron-back" size={ms(24)} color="#fff" />
@@ -85,7 +85,7 @@ export default function ChapterDetailsScreen() {
         {/* Banner Section */}
         <View style={styles.bannerContainer}>
           <ImageBackground 
-            source={require('../../assets/level-detail-1.png')} 
+            source={require('../../../assets/level-detail-1.png')} 
             style={styles.banner}
             resizeMode="cover"
           >
@@ -160,7 +160,7 @@ export default function ChapterDetailsScreen() {
       <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, hp(15)) }]}>
           <TouchableOpacity 
             style={styles.continueButton}
-            onPress={() => router.push('/(tabs)/subtopic-list')}
+            onPress={() => router.push('/(tabs)/levels/subtopic-list')}
           >
              <Text style={styles.continueButtonText}>{t('levels.continue_learning')}</Text>
           </TouchableOpacity>
